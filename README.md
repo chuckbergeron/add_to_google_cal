@@ -52,3 +52,11 @@ So long as your object responds to
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+
+## Why?
+
+I was working on [Handcrafted Video Wedding Invites](http://www.craftedtoyou.com/) and this project was born out of a need to allow wedding guests quickly adding a wedding event to their Google Calendar.
+
+http://www.craftedtoyou.com/
