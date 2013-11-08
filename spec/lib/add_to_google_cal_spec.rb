@@ -11,7 +11,7 @@ describe AddToGoogleCal do
     describe "#gcal_href" do
 
       it "builds the add to google cal link" do
-        expect(Wedding.new.gcal_href).to match[/google.com/]
+        expect(Wedding.new.gcal_href).to match(/google.com/)
       end
 
     end

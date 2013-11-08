@@ -16,5 +16,5 @@ module AddToGoogleCal
 end
 
 # if Object.const_defined? :ActiveRecord
-  ActiveRecord::Base.extend AddToGoogleCal
+  ActiveRecord::Base.send(:include, AddToGoogleCal)
 # end
