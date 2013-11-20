@@ -24,6 +24,13 @@ describe AddToGoogleCalBuilder do
     url.should include("&text=This+is+the")
   end
 
+  it 'supports a location' do
+    add = AddToGoogleCalBuilder.new(default_attributes.merge(location: "Vancouver, BC"))
+    url = add.call
+
+    url.should include("&location=Vancouver%2C+BC")
+  end
+
   it 'maps description to details' do
     add = AddToGoogleCalBuilder.new(default_attributes.merge(description: "Hey: How@are.you & there!"))
     url = add.call

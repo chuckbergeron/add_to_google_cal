@@ -14,16 +14,20 @@ class AddToGoogleCalBuilder
   end
 
   def call
+    attributes = {
+      dates:   "#{format_time(dtstart)}/#{format_time(dtend)}",
+      text:    encode_string(@hash[:summary])
+    }
+
+    attributes.merge!(details: encode_string(@hash[:description])) unless @hash[:description].blank?
+    attributes.merge!(location: encode_string(@hash[:location])) unless @hash[:location].blank?
+
+
     url = "https://www.google.com/calendar/render?action=TEMPLATE"
 
-    {
-      dates:   "#{format_time(dtstart)}/#{format_time(dtend)}",
-      text:    encode_string(@hash[:summary]),
-    }.each do |key, value|
+    attributes.each do |key, value|
       url << "&#{key}=#{value}"
-    end
-
-    url << "&details=#{encode_string(@hash[:description])}" unless @hash[:description].blank?
+    end    
 
     url
   end
