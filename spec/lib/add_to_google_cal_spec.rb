@@ -17,13 +17,19 @@ describe AddToGoogleCalBuilder do
     url.should include("&dates=20130103T120000Z/20130103T140000Z")
   end
 
-  it 'includes the text (or title)' do
+  it 'maps summary to text' do
     add = AddToGoogleCalBuilder.new(default_attributes)
     url = add.call
 
     url.should include("&text=This+is+the")
   end
 
+  it 'maps description to details' do
+    add = AddToGoogleCalBuilder.new(default_attributes.merge(description: "Hey: How@are.you & there!"))
+    url = add.call
+
+    url.should include("&details=Hey%3A+How%40are.you+%26+there%21")
+  end
 
   describe '#new' do
 

@@ -1,18 +1,23 @@
 require 'add_to_google_cal/version'
 require 'active_record'
-require 'uri'
+require 'cgi'
 
 # require 'active_support/core_ext'
 # require File.join(File.dirname(__FILE__), "add_to_google_cal/railtie")
 
 class AddToGoogleCalBuilder
 
+  # TODO: Find out which attributes are optional (details? text? dates?)
+
   def initialize(hash)
     @hash = hash
   end
 
   def call
-    "https://www.google.com/calendar/render?action=TEMPLATE&dates=#{dates}&text=#{text}"
+    url = "https://www.google.com/calendar/render?action=TEMPLATE&dates=#{dates}&text=#{text}"
+    url << "&details=#{details}" unless @hash[:description].blank?
+
+    url
   end
 
   private
@@ -22,7 +27,11 @@ class AddToGoogleCalBuilder
     end
 
     def text
-      URI.escape(@hash[:summary].gsub(/\s/, '+'))
+      CGI.escape(@hash[:summary])
+    end
+
+    def details
+      CGI.escape(@hash[:description])
     end
 
     def dtstart
