@@ -9,12 +9,12 @@ class AddToGoogleCalBuilder
 
   # TODO: Find out which attributes are optional (details? text? dates?)
 
-  def initialize(hash)
-    @hash = hash
+  attr_accessor :hash
+
+  def initialize(object_or_hash)
+    self.hash = object_or_hash
   end
 
-
-  
   def call
     attributes = {
       dates:   "#{format_time(dtstart)}/#{format_time(dtend)}",

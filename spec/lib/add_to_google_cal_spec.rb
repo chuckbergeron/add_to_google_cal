@@ -10,42 +10,46 @@ describe AddToGoogleCalBuilder do
     }
   }
 
+  subject do
+    AddToGoogleCalBuilder.new(default_attributes)
+  end
+
   it "generates the dates" do
-    add = AddToGoogleCalBuilder.new(default_attributes)
-    url = add.call
+    url = subject.call
 
     url.should include("&dates=20130103T120000Z/20130103T140000Z")
   end
 
   it 'maps summary to text' do
-    add = AddToGoogleCalBuilder.new(default_attributes)
-    url = add.call
+    url = subject.call
 
     url.should include("&text=This+is+the")
   end
 
   it 'supports a location' do
-    add = AddToGoogleCalBuilder.new(default_attributes.merge(location: "Vancouver, BC"))
-    url = add.call
+    subject.hash.merge!(location: "Vancouver, BC")
+    url = subject.call
 
     url.should include("&location=Vancouver%2C+BC")
   end
 
   it 'maps description to details' do
-    add = AddToGoogleCalBuilder.new(default_attributes.merge(description: "Hey: How@are.you & there!"))
-    url = add.call
+    subject.hash.merge!(description: "Hey: How@are.you & there!")
+    url = subject.call
 
     url.should include("&details=Hey%3A+How%40are.you+%26+there%21")
   end
 
   describe '#new' do
 
-    it 'expects an object' do
+    it 'takes a hash or an object' do
 
     end
 
   end
 
+
+  # AR Implementation
   describe "has_google_cal" do
 
     xit "should respond_to gcal_href" do
