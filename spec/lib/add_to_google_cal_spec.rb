@@ -2,15 +2,28 @@ require 'spec_helper'
 
 describe AddToGoogleCalBuilder do
 
-  describe "dates" do
-    it "generates the dates" do
-      add = AddToGoogleCalBuilder.new(dtstart: Time.utc(2013, 01, 03, 12, 00),
-        dtend: Time.utc(2013, 01, 03, 14, 00))
-      url = add.call
+  let(:default_attributes) { 
+    {
+      dtstart: Time.utc(2013, 01, 03, 12, 00),
+      dtend: Time.utc(2013, 01, 03, 14, 00),
+      summary: 'This is the Title of the Event'
+    }
+  }
 
-      url.should include("&dates=20130103T120000Z/20130103T140000Z")
-    end
+  it "generates the dates" do
+    add = AddToGoogleCalBuilder.new(default_attributes)
+    url = add.call
+
+    url.should include("&dates=20130103T120000Z/20130103T140000Z")
   end
+
+  it 'includes the text (or title)' do
+    add = AddToGoogleCalBuilder.new(default_attributes)
+    url = add.call
+
+    url.should include("&text=This+is+the")
+  end
+
 
   describe '#new' do
 
