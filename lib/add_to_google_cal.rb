@@ -38,7 +38,7 @@ class AddToGoogleCalBuilder
 
     attributes.each do |key, value|
       url << "&#{key}=#{value}"
-    end    
+    end
 
     url
   end

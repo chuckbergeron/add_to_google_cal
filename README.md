@@ -65,9 +65,9 @@ Or install it yourself as:
 
 ## TODO:
 
-* Handle conerting various date/time objects
-* Check with Google's API and write required vs. optional attributes
-  * Argument validation for required fields
+* Handle converting various types of date/time objects
+  * Finish the argument validation for required fields
+* Finish implementing the ActiveRecord hook
 * Support custom column names in has_google_cal AR mixin
 
 
