@@ -1,6 +1,7 @@
 require 'add_to_google_cal/version'
 require 'active_record'
 require 'cgi'
+require 'debugger'
 
 # require 'active_support/core_ext'
 # require File.join(File.dirname(__FILE__), "add_to_google_cal/railtie")
@@ -20,9 +21,8 @@ class AddToGoogleCalBuilder
   attr_accessor :hash
 
   def initialize(object_or_hash)
-    raise ArgumentError, 'Argument is not numeric' unless x.is_a? Numeric
-    
     self.hash = object_or_hash
+    validate
   end
 
   def call
@@ -44,6 +44,12 @@ class AddToGoogleCalBuilder
   end
 
   private
+
+    def validate
+      raise(ArgumentError, ":dtstart must be a date/time") unless hash[:dtstart].kind_of? Time
+      raise(ArgumentError, ":dtend must be a date/time")   unless hash[:dtend].kind_of? Time
+      raise(ArgumentError, ":summary must be a string")    unless hash[:summary].kind_of? String
+    end
 
     def encode_string(str)
       CGI.escape(str)

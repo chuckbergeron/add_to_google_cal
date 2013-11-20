@@ -34,6 +34,11 @@ describe AddToGoogleCalBuilder do
     subject.call.should include("&details=Hey%3A+How%40are.you+%26+there%21")
   end
 
+  it "should raise ArgumentError for arguments that are not date/time" do
+    subject.hash = {}
+    expect { subject.send(:validate) }.to raise_error(ArgumentError)
+  end
+
 
   # AR Implementation
   describe "has_google_cal" do
