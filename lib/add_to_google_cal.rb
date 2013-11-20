@@ -15,22 +15,22 @@ class AddToGoogleCalBuilder
 
   def call
     url = "https://www.google.com/calendar/render?action=TEMPLATE"
+
     {
       dates:   "#{format_time(dtstart)}/#{format_time(dtend)}",
       text:    encode_string(@hash[:summary]),
-      details: encode_string(@hash[:description])
-    }.each |key, value|
+    }.each do |key, value|
       url << "&#{key}=#{value}"
     end
 
-    url << "&details=#{details}" unless @hash[:description].blank?
+    url << "&details=#{encode_string(@hash[:description])}" unless @hash[:description].blank?
 
     url
   end
 
   private
 
-
+    
 
     def encode_string(str)
       CGI.escape(str)
