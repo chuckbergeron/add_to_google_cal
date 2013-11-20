@@ -46,11 +46,13 @@ class AddToGoogleCalBuilder
   private
 
     def validate
-      raise(ArgumentError, ":dtstart must be a date/time") unless hash[:dtstart].kind_of? Time
-      raise(ArgumentError, ":dtend must be a date/time")   unless hash[:dtend].kind_of? Time
+      msg =  "- Object must be a Date, DateTime or Time object."
+      raise(ArgumentError, ":dtstart #{msg} #{hash[:dtstart].class} given") unless hash[:dtstart].kind_of? Time
+      raise(ArgumentError, ":dtend #{msg} #{hash[:dtend].class} given") unless hash[:dtend].kind_of? Time
 
       raise(ArgumentError, ":summary must be a string") unless hash[:summary].kind_of? String
       raise(ArgumentError, ":summary must not be blank") if hash[:summary].blank?
+
     end
 
     def encode_string(str)
