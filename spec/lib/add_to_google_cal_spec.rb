@@ -20,7 +20,6 @@ describe AddToGoogleCalBuilder do
 
   it 'maps summary to text' do
     expect(subject.call).to include("&text=This+is+the")
-    puts subject.call
   end
 
   it 'supports a location' do
