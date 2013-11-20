@@ -20,6 +20,7 @@ describe AddToGoogleCalBuilder do
 
   it 'maps summary to text' do
     expect(subject.call).to include("&text=This+is+the")
+    puts subject.call
   end
 
   it 'supports a location' do
@@ -34,8 +35,18 @@ describe AddToGoogleCalBuilder do
     subject.call.should include("&details=Hey%3A+How%40are.you+%26+there%21")
   end
 
-  it "should raise ArgumentError for arguments that are not date/time" do
-    subject.hash = {}
+  it "should raise ArgumentError for a dtstart that is not a date/time" do
+    subject.hash[:dtstart] = ''
+    expect { subject.send(:validate) }.to raise_error(ArgumentError)
+  end
+
+  it "should raise ArgumentError for a dtend that is not a date/time" do
+    subject.hash[:dtend] = ''
+    expect { subject.send(:validate) }.to raise_error(ArgumentError)
+  end
+
+  it "should raise ArgumentError for a summary that is not stringify'able or is blank" do
+    subject.hash[:summary] = ''
     expect { subject.send(:validate) }.to raise_error(ArgumentError)
   end
 
