@@ -13,14 +13,16 @@ class AddToGoogleCalBuilder
     @hash = hash
   end
 
+
+  
   def call
     attributes = {
       dates:   "#{format_time(dtstart)}/#{format_time(dtend)}",
       text:    encode_string(@hash[:summary])
     }
 
-    attributes.merge!(details: encode_string(@hash[:description])) unless @hash[:description].blank?
-    attributes.merge!(location: encode_string(@hash[:location])) unless @hash[:location].blank?
+    attributes.merge!(details:  encode_string(@hash[:description])) unless @hash[:description].blank?
+    attributes.merge!(location: encode_string(@hash[:location]))    unless @hash[:location].blank?
 
 
     url = "https://www.google.com/calendar/render?action=TEMPLATE"
@@ -33,8 +35,6 @@ class AddToGoogleCalBuilder
   end
 
   private
-
-    
 
     def encode_string(str)
       CGI.escape(str)
