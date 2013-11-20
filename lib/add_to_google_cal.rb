@@ -27,11 +27,15 @@ class AddToGoogleCalBuilder
     end
 
     def text
-      CGI.escape(@hash[:summary])
+      encode_string(@hash[:summary])
     end
 
     def details
-      CGI.escape(@hash[:description])
+      encode_string(@hash[:description])
+    end
+
+    def encode_string(str)
+      CGI.escape(str)
     end
 
     def dtstart
