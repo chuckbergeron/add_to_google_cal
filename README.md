@@ -20,11 +20,15 @@ Or install it yourself as:
 
 ### ActiveRecord:
 
-class Wedding < AR::Base
+    class Wedding < AR::Base
 
-  has_google_cal {:date_attribute_name => 'crazy_date'}
+      has_google_cal {
+        :date_attribute_name => 'crazy_date'
+      }
 
-end
+    end
+
+    Wedding.first.to_google_cal
 
 ### Generic Ruby Object:
 
@@ -37,13 +41,19 @@ end
     AddToGoogleCal.new(@object).call
     => "https://www.google.com/calendar/render?action=TEMPLATE&dates=20190726T000000Z/20190726T000000Z& ..." (or something like this)
 
-wedding.to_google_cal
 
-### erb:
+### erb might look like:
 
     <%= AddToGoogleCal.new(@object).call %>
 
-So long as your object responds to
+So long as your object responds to ...
+
+
+## Thanks To
+
+@pcreux and everyone else who has colloborated / paired on this project.
+
+
 
 ## Contributing
 
