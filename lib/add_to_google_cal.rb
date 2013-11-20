@@ -17,13 +17,12 @@ class AddToGoogleCalBuilder
 
   def call
     attributes = {
-      dates:   "#{format_time(dtstart)}/#{format_time(dtend)}",
-      text:    encode_string(@hash[:summary])
+      dates: "#{format_time(dtstart)}/#{format_time(dtend)}",
+      text:  encode_string(@hash[:summary])
     }
 
     attributes.merge!(details:  encode_string(@hash[:description])) unless @hash[:description].blank?
     attributes.merge!(location: encode_string(@hash[:location]))    unless @hash[:location].blank?
-
 
     url = "https://www.google.com/calendar/render?action=TEMPLATE"
 

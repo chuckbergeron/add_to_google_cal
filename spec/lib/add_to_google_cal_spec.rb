@@ -14,38 +14,28 @@ describe AddToGoogleCalBuilder do
     AddToGoogleCalBuilder.new(default_attributes)
   end
 
-  it "generates the dates" do
-    url = subject.call
+  describe '#new' do
 
-    url.should include("&dates=20130103T120000Z/20130103T140000Z")
+  end
+
+  it "generates the dates" do
+    expect(subject.call).to include("&dates=20130103T120000Z/20130103T140000Z")
   end
 
   it 'maps summary to text' do
-    url = subject.call
-
-    url.should include("&text=This+is+the")
+    expect(subject.call).to include("&text=This+is+the")
   end
 
   it 'supports a location' do
     subject.hash.merge!(location: "Vancouver, BC")
-    url = subject.call
 
-    url.should include("&location=Vancouver%2C+BC")
+    subject.call.should include("&location=Vancouver%2C+BC")
   end
 
   it 'maps description to details' do
     subject.hash.merge!(description: "Hey: How@are.you & there!")
-    url = subject.call
 
-    url.should include("&details=Hey%3A+How%40are.you+%26+there%21")
-  end
-
-  describe '#new' do
-
-    it 'takes a hash or an object' do
-
-    end
-
+    subject.call.should include("&details=Hey%3A+How%40are.you+%26+there%21")
   end
 
 
