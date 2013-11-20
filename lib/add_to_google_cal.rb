@@ -23,7 +23,7 @@ class AddToGoogleCalBuilder
   private
 
     def dates
-      "#{dtstart.utc.strftime('%Y%m%dT%H%M%SZ')}/#{dtend.utc.strftime('%Y%m%dT%H%M%SZ')}"
+      "#{format_time(dtstart)}/#{format_time(dtend)}"
     end
 
     def text
@@ -36,6 +36,10 @@ class AddToGoogleCalBuilder
 
     def encode_string(str)
       CGI.escape(str)
+    end
+
+    def format_time(time)
+      time.utc.strftime('%Y%m%dT%H%M%SZ')
     end
 
     def dtstart
