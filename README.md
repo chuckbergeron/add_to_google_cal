@@ -22,31 +22,53 @@ Or install it yourself as:
 
     class Wedding < AR::Base
 
-      has_google_cal {
-        :date_attribute_name => 'crazy_date'
-      }
+      has_google_cal
 
     end
 
     Wedding.first.to_google_cal
 
-### Generic Ruby Object:
+    # TODO: Support custom column names, ie:
+    has_google_cal {
+      :dtstart_attribute => 'crazy_date_start_column_name'
+    }
+
+### Generic Object:
 
     require 'ostruct'
-    @object = OpenStruct.new({
-      :description => "Super awesome event coming up in 2009, y'all!",
-      :date => '2019-03-07'
+    object = OpenStruct.new({
+      :summary => "Super awesome event coming up in 2009, y'all!",
+      :dtstart => '2019-03-07'
     })
 
-    AddToGoogleCal.new(@object).call
+    AddToGoogleCal.new(object).call
+    => "https://www.google.com/calendar/render?action=TEMPLATE&dates=20190726T000000Z/20190726T000000Z& ..." (or something like this)
+
+### Ruby Hash:
+
+    attributes = {
+      {
+        dtstart: Time.utc(2013, 01, 03, 12, 00),
+        dtend:   Time.utc(2013, 01, 03, 14, 00),
+        summary: 'This is the Title of the Event'
+      }
+    }
+
+    AddToGoogleCal.new(attributes).call
     => "https://www.google.com/calendar/render?action=TEMPLATE&dates=20190726T000000Z/20190726T000000Z& ..." (or something like this)
 
 
 ### erb might look like:
 
-    <%= AddToGoogleCal.new(@object).call %>
+    <%= link_to("Add To Google Calendar", AddToGoogleCal.new(object).call) %>
 
-So long as your object responds to ...
+
+## TODO:
+
+* Handle conerting various date/time objects
+* Check with Google's API and write required vs. optional attributes
+  * Argument validation for required fields
+* Support custom column names in has_google_cal AR mixin
 
 
 ## Thanks To

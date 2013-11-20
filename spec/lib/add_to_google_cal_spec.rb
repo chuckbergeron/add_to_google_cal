@@ -14,10 +14,6 @@ describe AddToGoogleCalBuilder do
     AddToGoogleCalBuilder.new(default_attributes)
   end
 
-  describe '#new' do
-
-  end
-
   it "generates the dates" do
     expect(subject.call).to include("&dates=20130103T120000Z/20130103T140000Z")
   end
