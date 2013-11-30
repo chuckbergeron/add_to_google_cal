@@ -1,6 +1,3 @@
-# require 'rubygems'
-# require 'bundler/setup'
-
 require 'add_to_google_cal'
 
 sqlite_file = File.dirname(__FILE__) + "/support/add_to_google_cal.sqlite3"

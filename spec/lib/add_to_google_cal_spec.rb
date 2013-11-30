@@ -53,14 +53,10 @@ describe AddToGoogleCal::Builder do
   # AR Implementation
   describe "has_google_cal" do
 
-    xit "should respond_to gcal_href" do
-      expect(Wedding.new).to respond_to?(:gcal_href)
-    end
+    describe "#to_gcal" do
 
-    describe "#gcal_href" do
-
-      xit "builds the add to google cal link" do
-        expect(Wedding.new.gcal_href).to match(/google.com/)
+      it "builds the add to google cal link" do
+        expect(Wedding.new.to_gcal).to match(/google.com/)
       end
 
     end

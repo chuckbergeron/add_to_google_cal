@@ -1,33 +1,9 @@
 require_relative 'add_to_google_cal/version'
+require_relative 'add_to_google_cal/builder'
 
 require 'active_record'
 require 'cgi'
-require 'debugger'
-
-
-
-# require 'active_support/core_ext'
-# require File.join(File.dirname(__FILE__), "add_to_google_cal/railtie")
-
-
-# module AddToGoogleCal
-
-#   def gcal_href
-#     "
-#   end
-
-#   # autoload :Hook, File.join(File.dirname(__FILE__), "add_to_google_cal/hook")
-#   # autoload :InstanceMethods, File.join(File.dirname(__FILE__), "add_to_google_cal/instance_methods")
-
-# end
-
-# if Object.const_defined? :ActiveRecord
-  # ActiveRecord::Base.send(:include, AddToGoogleCal)
-# end
-
-
-
-
+# require 'debugger'
 
 # Output:
 #
@@ -37,56 +13,18 @@ require 'debugger'
 
 module AddToGoogleCal
 
-  class Builder
+  def to_gcal
+    # TODO: Replace this with a way of configuring the columns, and values from the model:
+    hash = {
+      dtstart: Time.utc(2013, 01, 03, 12, 00),
+      dtend: Time.utc(2013, 01, 03, 14, 00),
+      summary: 'This is the Title of the Event'
+    }
 
-    # TODO: Find out which attributes are optional (details? text? dates?)
-
-    attr_accessor :hash
-
-    def initialize(object_or_hash)
-      self.hash = object_or_hash
-      validate
-    end
-
-    def call
-      attributes = {
-        dates: "#{format_time(@hash[:dtstart])}/#{format_time(@hash[:dtend])}",
-        text:  encode_string(@hash[:summary])
-      }
-
-      attributes.merge!(details:  encode_string(@hash[:description])) unless @hash[:description].blank?
-      attributes.merge!(location: encode_string(@hash[:location]))    unless @hash[:location].blank?
-
-      url = "https://www.google.com/calendar/render?action=TEMPLATE"
-
-      attributes.each do |key, value|
-        url << "&#{key}=#{value}"
-      end
-
-      url
-    end
-
-    private
-
-      def validate
-        msg =  "- Object must be a Date, DateTime or Time object."
-        raise(ArgumentError, ":dtstart #{msg} #{hash[:dtstart].class} given") unless hash[:dtstart].kind_of? Time
-        raise(ArgumentError, ":dtend #{msg} #{hash[:dtend].class} given") unless hash[:dtend].kind_of? Time
-
-        raise(ArgumentError, ":summary must be a string") unless hash[:summary].kind_of? String
-        raise(ArgumentError, ":summary must not be blank") if hash[:summary].blank?
-
-      end
-
-      def encode_string(str)
-        CGI.escape(str)
-      end
-
-      def format_time(time)
-        time.utc.strftime('%Y%m%dT%H%M%SZ')
-      end
-
+    AddToGoogleCal::Builder.new(hash).call
   end
 
 end
 
+
+ActiveRecord::Base.send :include, AddToGoogleCal
