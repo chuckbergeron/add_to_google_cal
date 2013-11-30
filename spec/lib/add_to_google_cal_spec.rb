@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe AddToGoogleCalBuilder do
+describe AddToGoogleCal::Builder do
 
-  let(:default_attributes) { 
+  let(:default_attributes) {
     {
       dtstart: Time.utc(2013, 01, 03, 12, 00),
       dtend: Time.utc(2013, 01, 03, 14, 00),
@@ -11,7 +11,7 @@ describe AddToGoogleCalBuilder do
   }
 
   subject do
-    AddToGoogleCalBuilder.new(default_attributes)
+    AddToGoogleCal::Builder.new(default_attributes)
   end
 
   it "generates the dates" do

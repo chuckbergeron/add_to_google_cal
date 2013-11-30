@@ -41,7 +41,7 @@ Or install it yourself as:
       :dtstart => '2019-03-07'
     })
 
-    AddToGoogleCalBuilder.new(object).call
+    AddToGoogleCal::Builder.new(object).call
     => "https://www.google.com/calendar/render?action=TEMPLATE&dates=20190726T000000Z/20190726T000000Z& ..." (or something like this)
 
 ### Ruby Hash:
@@ -54,7 +54,7 @@ Or install it yourself as:
       }
     }
 
-    AddToGoogleCalBuilder.new(attributes).call
+    AddToGoogleCal::Builder.new(attributes).call
     => 'https://www.google.com/calendar/render?action=TEMPLATE&dates=20130103T120000Z/20130103T140000Z&text=This+is+the+Title+of+the+Event'
 
 
