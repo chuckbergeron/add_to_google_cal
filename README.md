@@ -2,6 +2,9 @@
 
 A view layer helper which takes an object (such as an ActiveRecord instance from your database) and generates an "Add To Google Calendar" URL based on it's attributes.
 
+This follows the ISO RFC-2445 calendar standard of using `dtstart`, `dtend`, `summary`, etc. You can customize these fields to match your implementation (ie. `start_date`, `end_date`, `event_name`, etc). Details on this below.
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -67,6 +70,8 @@ Or install it yourself as:
 
 * Handle converting various types of date/time objects
   * Finish the argument validation for required fields
+* Support objects / structs
+
 * Finish implementing the ActiveRecord hook
 * Support custom column names in has_google_cal AR mixin
 

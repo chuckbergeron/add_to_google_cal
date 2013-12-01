@@ -5,7 +5,7 @@ describe AddToGoogleCal::Builder do
   let(:default_attributes) {
     {
       dtstart: Time.utc(2013, 01, 03, 12, 00),
-      dtend: Time.utc(2013, 01, 03, 14, 00),
+      dtend:   Time.utc(2013, 01, 03, 14, 00),
       summary: 'This is the Title of the Event'
     }
   }
@@ -36,17 +36,17 @@ describe AddToGoogleCal::Builder do
 
   it "should raise ArgumentError for a dtstart that is not a date/time" do
     subject.hash[:dtstart] = ''
-    expect { subject.send(:validate) }.to raise_error(ArgumentError)
+    expect { subject.send(:validate!) }.to raise_error(ArgumentError)
   end
 
   it "should raise ArgumentError for a dtend that is not a date/time" do
     subject.hash[:dtend] = ''
-    expect { subject.send(:validate) }.to raise_error(ArgumentError)
+    expect { subject.send(:validate!) }.to raise_error(ArgumentError)
   end
 
   it "should raise ArgumentError for a summary that is not stringify'able or is blank" do
     subject.hash[:summary] = ''
-    expect { subject.send(:validate) }.to raise_error(ArgumentError)
+    expect { subject.send(:validate!) }.to raise_error(ArgumentError)
   end
 
 
