@@ -49,16 +49,16 @@ describe AddToGoogleCal::Builder do
     expect { subject.send(:validate!) }.to raise_error(ArgumentError)
   end
 
-
   # AR Implementation
   describe "has_google_cal" do
 
-    describe "#to_gcal" do
+    it "accepts options" do
+      expect(Wedding.new.to_gcal).to include("&dates=20130103T120000Z/20130103T140000Z")
+    end
 
-      it "builds the add to google cal link" do
-        expect(Wedding.new.to_gcal).to match(/google.com/)
-      end
-
+    it "builds the add to google cal link" do
+      puts Wedding.new.to_gcal
+      expect(Wedding.new.to_gcal).to include("&dates=20130103T120000Z/20130103T140000Z")
     end
 
   end
