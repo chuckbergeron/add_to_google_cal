@@ -50,15 +50,18 @@ describe AddToGoogleCal::Builder do
   # AR Implementation
   describe "has_google_cal" do
 
-    subject { Wedding.create(default_attributes) }
-
-    it "accepts options" do
-      expect(subject.to_gcal).to include("&dates=20130103T120000Z/20130103T140000Z")
+    it "builds the add to google cal link" do
+      wedding = Wedding.create(default_attributes)
+      expect(wedding.to_gcal).to include("&dates=20130103T120000Z/20130103T140000Z")
     end
 
-    it "builds the add to google cal link" do
-      puts Wedding.new.to_gcal
-      expect(Wedding.new.to_gcal).to include("&dates=20130103T120000Z/20130103T140000Z")
+    it "accepts options" do
+      event = EventNonStandardColumns.create({
+        start_time: Time.utc(2013, 01, 03, 12, 00),
+        end_time:   Time.utc(2013, 01, 03, 14, 00),
+        event_name: 'This is the Title of the Event'
+      })
+      expect(event.to_gcal).to include("&dates=20130103T120000Z/20130103T140000Z")
     end
 
   end

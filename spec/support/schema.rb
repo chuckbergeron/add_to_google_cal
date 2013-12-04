@@ -10,4 +10,12 @@ ActiveRecord::Schema.define do
     t.timestamps
   end
 
+  create_table :event_non_standard_columns, :force => true do |t|
+    t.string :event_name
+    t.datetime :start_time
+    t.datetime :end_time
+
+    t.timestamps
+  end
+
 end
