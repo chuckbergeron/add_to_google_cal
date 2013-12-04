@@ -10,9 +10,7 @@ describe AddToGoogleCal::Builder do
     }
   }
 
-  subject do
-    AddToGoogleCal::Builder.new(default_attributes)
-  end
+  subject { AddToGoogleCal::Builder.new(default_attributes) }
 
   it "generates the dates" do
     expect(subject.call).to include("&dates=20130103T120000Z/20130103T140000Z")
@@ -52,8 +50,10 @@ describe AddToGoogleCal::Builder do
   # AR Implementation
   describe "has_google_cal" do
 
+    subject { Wedding.create(default_attributes) }
+
     it "accepts options" do
-      expect(Wedding.new.to_gcal).to include("&dates=20130103T120000Z/20130103T140000Z")
+      expect(subject.to_gcal).to include("&dates=20130103T120000Z/20130103T140000Z")
     end
 
     it "builds the add to google cal link" do

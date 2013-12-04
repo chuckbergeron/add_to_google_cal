@@ -3,7 +3,7 @@ ActiveRecord::Schema.define do
   self.verbose = false
 
   create_table :weddings, :force => true do |t|
-    t.string :event_name
+    t.string :summary
     t.datetime :dtstart
     t.datetime :dtend
 

@@ -40,7 +40,6 @@ module AddToGoogleCal
 
         raise(ArgumentError, ":summary must be a string") unless hash[:summary].kind_of? String
         raise(ArgumentError, ":summary must not be blank") if hash[:summary].blank?
-
       end
 
       def encode_string(str)

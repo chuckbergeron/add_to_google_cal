@@ -3,7 +3,7 @@ require_relative 'add_to_google_cal/version'
 
 require 'active_record'
 require 'cgi'
-require 'pry-debugger'
+# require 'pry-debugger'
 
 module AddToGoogleCal
 
@@ -25,13 +25,15 @@ module AddToGoogleCal
 
     def to_gcal
       summary_field = self.class.summary_field
-      # if self.respond_to?(summary_field)
+      unless self.respond_to?(summary_field)
+        raise ArgumentError, "#{self} does not have a #{summary_field}"
+      end
+      puts self.summary
 
-      # TODO: Replace this with a way of configuring the columns, and values from the model:
       hash = {
         dtstart: self.dtstart,
         dtend:   self.dtend,
-        summary: self.send()
+        summary: self.send(summary_field)
       }
 
       AddToGoogleCal::Builder.new(hash).call
