@@ -31,9 +31,16 @@ Or install it yourself as:
 
     Wedding.first.to_google_cal
 
-    # TODO: Support custom column names, ie:
+If your ActiveRecord model uses column names other than `dtstart`, `summary`, for example:
+
+    Wedding.new(event_name: 'My Event Title')
+
+Use:
+
     has_google_cal {
-      :dtstart_attribute => 'crazy_date_start_column_name'
+      :dtstart_field => 'crazy_date_start_column_name',
+      :dtend_field   => 'my_event_end_time',
+      :summary_field => 'event_name'
     }
 
 ### Generic Object:
@@ -70,10 +77,10 @@ Or install it yourself as:
 
 * Handle converting various types of date/time objects
   * Finish the argument validation for required fields
+* Support the following custom column names in has_google_cal AR mixin:
+  * location
+  * description
 * Support objects / structs
-
-* Finish implementing the ActiveRecord hook
-* Support custom column names in has_google_cal AR mixin
 
 
 ## Thanks To
