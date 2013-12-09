@@ -1,47 +1,11 @@
 # AddToGoogleCal
 
-A view layer helper which takes an object (such as an ActiveRecord instance from your database) and generates an "Add To Google Calendar" URL based on it's attributes.
+A view layer helper which takes a hash or object (such as an ActiveRecord instance from your database) and generates an "Add To Google Calendar" URL based on it's attributes.
 
 This follows the ISO RFC-2445 calendar standard of using `dtstart`, `dtend`, `summary`, etc. You can customize these fields to match your implementation (ie. `start_date`, `end_date`, `event_name`, etc). Details on this below.
 
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'add_to_google_cal'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install add_to_google_cal
-
-## Usage
-
-### ActiveRecord:
-
-    class Wedding < AR::Base
-
-      has_google_cal
-
-    end
-
-    Wedding.first.to_google_cal
-
-If your ActiveRecord model uses column names other than `dtstart`, `summary`, for example:
-
-    Wedding.new(event_name: 'My Event Title')
-
-Use:
-
-    has_google_cal {
-      :dtstart_field => 'crazy_date_start_column_name',
-      :dtend_field   => 'my_event_end_time',
-      :summary_field => 'event_name'
-    }
+## How?
 
 ### Generic Object:
 
@@ -66,11 +30,49 @@ Use:
 
     AddToGoogleCal::Builder.new(attributes).call
     => 'https://www.google.com/calendar/render?action=TEMPLATE&dates=20130103T120000Z/20130103T140000Z&text=This+is+the+Title+of+the+Event'
-
-
+    
 ### erb might look like:
 
     <%= link_to("Add To Google Calendar", AddToGoogleCal.new(object).call) %>
+    
+### ActiveRecord:
+
+    class Wedding < AR::Base
+
+      has_google_cal
+
+    end
+
+    Wedding.first.to_google_cal
+
+If your ActiveRecord model uses column names other than `dtstart`, `summary`, for example:
+
+    Wedding.new(event_name: 'My Event Title')
+
+Use:
+
+    has_google_cal {
+      :dtstart_field => 'crazy_date_start_column_name',
+      :dtend_field   => 'my_event_end_time',
+      :summary_field => 'event_name'
+    }
+
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'add_to_google_cal'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install add_to_google_cal
+
+
 
 
 ## TODO:
